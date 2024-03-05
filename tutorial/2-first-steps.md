@@ -113,7 +113,7 @@ Let's try running our test to make sure Playwright works.
 Launch pytest using the following command:
 
 ```bash
-$ python3 -m pytest tests --headed --slowmo 1000
+$ python3 -m pytest old_tests --headed --slowmo 1000
 ```
 
 This invocation has two new arguments.

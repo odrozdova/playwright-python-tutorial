@@ -161,11 +161,12 @@ def test_basic_duckduckgo_search(page: Page) -> None:
 With this new code:
 
 ```python
-from pages.search import DuckDuckGoSearchPage
+from old_pages.search import DuckDuckGoSearchPage
+
 
 def test_basic_duckduckgo_search(page: Page) -> None:
     search_page = DuckDuckGoSearchPage(page)
-    
+
     # Given the DuckDuckGo home page is displayed
     search_page.load()
 
@@ -280,9 +281,10 @@ After rewriting the original test case to use `DuckDuckGoResultPage`,
 the code in `tests/test_search.py` should look like this:
 
 ```python
-from pages.result import DuckDuckGoResultPage
-from pages.search import DuckDuckGoSearchPage
+from old_pages.result import DuckDuckGoResultPage
+from old_pages.search import DuckDuckGoSearchPage
 from playwright.sync_api import expect, Page
+
 
 def test_basic_duckduckgo_search(page: Page) -> None:
     search_page = DuckDuckGoSearchPage(page)
@@ -338,13 +340,15 @@ Then, add the following code to `tests/conftest.py`:
 ```python
 import pytest
 
-from pages.result import DuckDuckGoResultPage
-from pages.search import DuckDuckGoSearchPage
+from old_pages.result import DuckDuckGoResultPage
+from old_pages.search import DuckDuckGoSearchPage
 from playwright.sync_api import Page
+
 
 @pytest.fixture
 def result_page(page: Page) -> DuckDuckGoResultPage:
     return DuckDuckGoResultPage(page)
+
 
 @pytest.fixture
 def search_page(page: Page) -> DuckDuckGoSearchPage:
@@ -363,15 +367,15 @@ You can learn more about fixtures from the
 To use these new fixtures, rewrite `tests/test_search.py` like this:
 
 ```python
-from pages.result import DuckDuckGoResultPage
-from pages.search import DuckDuckGoSearchPage
+from old_pages.result import DuckDuckGoResultPage
+from old_pages.search import DuckDuckGoSearchPage
 from playwright.sync_api import expect, Page
 
+
 def test_basic_duckduckgo_search(
-    page: Page,
-    search_page: DuckDuckGoSearchPage,
-    result_page: DuckDuckGoResultPage) -> None:
-    
+        page: Page,
+        search_page: DuckDuckGoSearchPage,
+        result_page: DuckDuckGoResultPage) -> None:
     # Given the DuckDuckGo home page is displayed
     search_page.load()
 

@@ -13,9 +13,9 @@ Testing Firefox and WebKit, the other two browsers bundled with Playwright, is a
 Use the `--browser` option with the `pytest-playwright` plugin like this:
 
 ```bash
-$ python3 -m pytest tests --browser chromium
-$ python3 -m pytest tests --browser firefox
-$ python3 -m pytest tests --browser webkit
+$ python3 -m pytest old_tests --browser chromium
+$ python3 -m pytest old_tests --browser firefox
+$ python3 -m pytest old_tests --browser webkit
 ```
 
 Give these a try and see what happens.
@@ -27,7 +27,7 @@ Pytest will treat each browser as a test case parameter.
 For example, you can run all three browsers like this:
 
 ```bash
-$ python3 -m pytest tests --browser chromium --browser firefox --browser webkit --verbose
+$ python3 -m pytest old_tests --browser chromium --browser firefox --browser webkit --verbose
 ```
 
 The extra `--verbose` option is not necessary,
@@ -39,8 +39,8 @@ Playwright enables you to test Google Chrome and Microsoft Edge through
 Use the `--browser-channel` option like this:
 
 ```bash
-$ python3 -m pytest tests --browser-channel chrome
-$ python3 -m pytest tests --browser-channel msedge
+$ python3 -m pytest old_tests --browser-channel chrome
+$ python3 -m pytest old_tests --browser-channel msedge
 ```
 
 Unfortunately, at the time of developing this tutorial (March 2022),
@@ -53,9 +53,9 @@ and it's quite long!
 To test one of these devices, use the `--device` option like this:
 
 ```bash
-$ python3 -m pytest tests --device "iPad Mini"
-$ python3 -m pytest tests --browser webkit --device "iPhone 11"
-$ python3 -m pytest tests --browser chromium --device "Pixel 5"
+$ python3 -m pytest old_tests --device "iPad Mini"
+$ python3 -m pytest old_tests --browser webkit --device "iPhone 11"
+$ python3 -m pytest old_tests --browser chromium --device "Pixel 5"
 ```
 
 Give it a try with `--headed --slowmo 1000` to see the drastically different screen sizes.
@@ -80,7 +80,7 @@ The `pytest-playwright` plugin provides a `--screenshot` option that will captur
 By default, this option is set to `off`, but you can turn it `on` like this:
 
 ```bash
-$ python3 -m pytest tests --screenshot on
+$ python3 -m pytest old_tests --screenshot on
 ```
 
 This will capture a screenshot after every test.
@@ -103,7 +103,7 @@ Instead of using `on` to save a screenshot for every test,
 use `only-on-failure` to save a screenshot for every *failing* test only:
 
 ```bash
-$ python3 -m pytest tests --screenshot only-on-failure
+$ python3 -m pytest old_tests --screenshot only-on-failure
 ```
 
 If you run this command, then you should not get a screenshot for the `test_basic_duckduckgo_search`
@@ -120,7 +120,7 @@ or we can set it to `retain-on-failure` to save video recordings only for failed
 Give video recording a try with this command:
 
 ```bash
-$ python3 -m pytest tests --video on
+$ python3 -m pytest old_tests --video on
 ```
 
 Playwright saves videos as [WebM](https://en.wikipedia.org/wiki/WebM) files in the output directory.
@@ -129,7 +129,7 @@ Just like with screenshots, saving videos for every test becomes imprudent over 
 It is recommended to use the `retain-on-failure` option:
 
 ```bash
-$ python3 -m pytest tests --video retain-on-failure
+$ python3 -m pytest old_tests --video retain-on-failure
 ```
 
 
@@ -156,10 +156,9 @@ Change the code in `tests/test_search.py` to match the following:
 ```python
 import pytest
 
-from pages.result import DuckDuckGoResultPage
-from pages.search import DuckDuckGoSearchPage
+from old_pages.result import DuckDuckGoResultPage
+from old_pages.search import DuckDuckGoSearchPage
 from playwright.sync_api import expect, Page
-
 
 ANIMALS = [
     'panda',
@@ -177,11 +176,10 @@ ANIMALS = [
 
 @pytest.mark.parametrize('phrase', ANIMALS)
 def test_basic_duckduckgo_search(
-    phrase: str,
-    page: Page,
-    search_page: DuckDuckGoSearchPage,
-    result_page: DuckDuckGoResultPage) -> None:
-    
+        phrase: str,
+        page: Page,
+        search_page: DuckDuckGoSearchPage,
+        result_page: DuckDuckGoResultPage) -> None:
     # Given the DuckDuckGo home page is displayed
     search_page.load()
 
@@ -206,7 +204,7 @@ The number you give with `-n` specifies the degree of concurrency.
 For example, you can run 2 tests in parallel like this:
 
 ```bash
-$ python3 -m pytest tests -n 2
+$ python3 -m pytest old_tests -n 2
 ```
 
 Typically, the optimal degree of concurrency is the number of processors or cores on your machine.
@@ -220,5 +218,5 @@ You can also test multiple browsers in parallel.
 For example, the following command will run the parameterized tests against all three Playwright browsers at 5x parallel:
 
 ```bash
-$ python3 -m pytest tests -n 5 --browser chromium --browser firefox --browser webkit
+$ python3 -m pytest old_tests -n 5 --browser chromium --browser firefox --browser webkit
 ```

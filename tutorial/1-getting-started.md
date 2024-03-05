@@ -155,8 +155,8 @@ By Python conventions, all tests should be located under a `tests` directory.
 Create a `tests` directory, and inside, create a file named `test_search.py`:
 
 ```bash
-$ mkdir tests
-$ touch tests/test_search.py
+$ mkdir old_tests
+$ touch old_tests/test_search.py
 ```
 
 Add the following code to `tests/test_search.py`:
@@ -185,7 +185,7 @@ Remember, write test *cases* before you write test *code*.
 Before continuing, run this test to make sure everything is set up correctly:
 
 ```bash
-$ python3 -m pytest tests
+$ python3 -m pytest old_tests
 ```
 
 pytest should discover, run, and pass the single test case under the `tests` directory.

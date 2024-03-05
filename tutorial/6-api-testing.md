@@ -371,7 +371,7 @@ def test_create_project_card(
 Run the new test module directly:
 
 ```bash
-$ python3 -m pytest tests/test_github_project.py
+$ python3 -m pytest old_tests/test_github_project.py
 ```
 
 Make sure all your environment variables are set correctly.
